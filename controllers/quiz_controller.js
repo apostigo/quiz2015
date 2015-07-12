@@ -1,5 +1,6 @@
 var models = require('../models/models.js');
-
+var cFiltro="%";
+  
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
   models.Quiz.find(quizId).then(
@@ -14,9 +15,16 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
+
+  cFiltro = "%";
+  if (req.query.search > "") {
+    cFiltro= req.query.search.split(' ').join('%');
+	cFiltro= '%' + cFiltro.toUpperCase() +'%'
+  }
+
+  models.Quiz.findAll({where:["upper(pregunta) like ?", cFiltro], order: 'pregunta ASC'}).then(
     function(quizes) {
-      res.render('quizes/index', { quizes: quizes});
+      res.render('quizes/index', { quizes: quizes, filtro: cFiltro});
     }
   ).catch(function(error) { next(error);})
 };
@@ -29,7 +37,7 @@ exports.show = function(req, res) {
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
   var resultado = 'Incorrecto';
-  if (req.query.respuesta === req.quiz.respuesta) {
+  if (req.query.respuesta.toLowerCase() === req.quiz.respuesta.toLowerCase()) {
     resultado = 'Correcto';
   }
   res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});

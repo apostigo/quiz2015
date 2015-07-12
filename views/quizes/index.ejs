@@ -1,4 +1,19 @@
+<form method="get" action="/quizes">
+  <p>Buscar preguntas que contengan: <input type="text" name="search" value=""/>
+	<input type="submit" value="Lanzar búsqueda">
+  </p>
+</form>
+
+
+<%
+  if (filtro=="%") filtro="Todas las preguntas";
+%>
+
+
 <table>
+  <th>
+    <strong>Filtro de Búsqueda: <%= filtro %></strong>
+  </th>
   <% var i; for (i=0; i < quizes.length; i++) { %>        
      <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr> 
   <% } %>

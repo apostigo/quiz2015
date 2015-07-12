@@ -1,4 +1,4 @@
-var path = require('path');
+﻿var path = require('path');
 
 // Postgres DATABASE_URL = postgres://user:passwd@host:port/database
 // SQLite   DATABASE_URL = sqlite://:@:/
@@ -38,6 +38,15 @@ sequelize.sync().then(function() {
     if(count === 0) {   // la tabla se inicializa solo si está vacía
       Quiz.create({ pregunta: 'Capital de Italia',
       	            respuesta: 'Roma'
+      	         });
+	  Quiz.create({ pregunta: 'Capital de Francia',
+      	            respuesta: 'Paris'
+      	         });
+	  Quiz.create({ pregunta: 'Color del cielo',
+      	            respuesta: 'Azul'
+      	         });
+	  Quiz.create({ pregunta: 'Color del carbón',
+      	            respuesta: 'Negro'
       	         });
 	  Quiz.create({ pregunta: 'Capital de Portugal',
       	            respuesta: 'Lisboa'
