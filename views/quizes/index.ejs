@@ -1,21 +1,27 @@
-<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+
 <form method="get" action="/quizes">
-  <p>Buscar preguntas que contengan: <input type="text" name="search" value=""/>
+  <p>
+  <a href="/quizes/new"><button type="button"> Crear pregunta </button></a>
+   · · · · · 
+  Buscar preguntas que contengan: <input type="text" name="search" value=""/>
 	<input type="submit" value="Lanzar búsqueda">
   </p>
+  <br>
 </form>
-
+<hr><br>
 
 <%
   if (filtro=="%") filtro="Todas las preguntas";
 %>
 
 
-<table>
-  <th>
-    <strong>Filtro de Búsqueda: <%= filtro %></strong>
+<table cellpadding="10" cellspacing="3">
+  <th colspan="3">
+    <strong> Filtro de Búsqueda: <%= filtro %> </strong>
   </th>
   <% var i; for (i=0; i < quizes.length; i++) { %>        
-     <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr> 
+     <tr>
+	    <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+	 </tr> 
   <% } %>
 </table>
