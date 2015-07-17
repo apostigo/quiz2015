@@ -1,5 +1,6 @@
 var models = require('../models/models.js');
 var cFiltro="%";
+var cTema = "";
   
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
@@ -21,10 +22,22 @@ exports.index = function(req, res) {
     cFiltro= req.query.search.split(' ').join('%');
 	cFiltro= '%' + cFiltro.toUpperCase() +'%'
   }
-
-  models.Quiz.findAll({where:["upper(pregunta) like ?", cFiltro], order: 'pregunta ASC'}).then(
+  
+  cTema='';
+  if (req.query.tematica !== "Todas") {
+    cTema = req.query.tematica;
+  }
+  
+  qryFiltro = "(upper(pregunta) like '" + cFiltro + "')";
+  
+  if (cTema>'') {
+     qryFiltro += " and tema = '" + cTema +"'";
+  }
+  
+   
+  models.Quiz.findAll({where: qryFiltro, order: 'pregunta ASC'}).then(
     function(quizes) {
-      res.render('quizes/index', { quizes: quizes, filtro: cFiltro, errors: []});
+      res.render('quizes/index', { quizes: quizes, filtro: qryFiltro, errors: []});
     }
   ).catch(function(error) { next(error);})
 };
@@ -46,7 +59,7 @@ exports.answer = function(req, res) {
 //  GET /quizes/new
 exports.new = function(req,res) {
   var quiz = models.Quiz.build( // crea objeto quiz
-	{ pregunta:"Pregunta", respuesta:"Respuesta" }
+	{ pregunta:"Pregunta", respuesta:"Respuesta", tema:"Otro" }
   );
   
   res.render('quizes/new', {quiz : quiz, errors: []} );
@@ -62,7 +75,7 @@ quiz.validate().then(
 		  res.render('quizes/new', {quiz: quiz, errors: err.errors});
 		} else {
 		  quiz // guarda en DB los campos pregunta y respuesta de quiz
-	      .save( {fields: ["pregunta","respuesta"]})
+	      .save( {fields: ["pregunta","respuesta", "tema"]})
 		  .then(function(){ res.redirect("/quizes")})
 		}
 	  });	
@@ -80,6 +93,7 @@ exports.edit = function(req,res) {
 exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
   
   req.quiz
   .validate()
@@ -89,7 +103,7 @@ exports.update = function(req, res) {
 	      res.render('quizes/edit', {quiz: req.quiz, errors: err.errors });
 	   } else {
 	      req.quiz
-		  .save( {fields: ["pregunta", "respuesta"] } )
+		  .save( {fields: ["pregunta", "respuesta", "tema" ] } )
 		  .then( function() { res.redirect('/quizes') } );
 	   }
 	 }

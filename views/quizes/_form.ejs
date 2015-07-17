@@ -9,6 +9,17 @@
 </p>
 <br><br>
 <p>
+  <label for "tema" class="rem">Temática: </label>
+   <select name="quiz[tema]" id="tema">
+	<option <%= quiz.tema === 'Otro' ? 'selected' : ''%> value="Otro" selected>Otro</option>
+	<option <%= quiz.tema === 'Humanidades' ? 'selected' : ''%> value="Humanidades">Humanidades</option>
+	<option <%= quiz.tema === 'Ocio' ? 'selected' : ''%> value="Ocio">Ocio</option>
+	<option <%= quiz.tema === 'Ciencia' ? 'selected' : ''%> value="Ciencia">Ciencia</option>
+	<option <%= quiz.tema === 'Tecnologia' ? 'selected' : ''%> value="Tecnologia">Tecnología</option>
+  </select>
+</p>
+<br><br>
+<p>
   <a href="/quizes"><button type="button">Cancelar</button></a>
   <input type="submit" value="Salvar">
 </p>  

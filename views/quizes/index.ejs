@@ -1,30 +1,35 @@
-
 <form method="get" action="/quizes">
   <p>
-  <a href="/quizes/new"><button type="button"> Crear pregunta </button></a>
-   · · · · · 
+  Buscar preguntas del tema: 
+  <select name="tematica">
+  <option value="Todas" selected>Todos los temas</option>
+  <option value="Otro">Otro</option>
+  <option value="Humanidades">Humanidades</option>
+  <option value="Ocio">Ocio</option>
+  <option value="Ciencia">Ciencia</option>
+  <option value="Tecnologia">Tecnología</option>
+</select>
+  
+  <br>
   Buscar preguntas que contengan: <input type="text" name="search" value=""/>
 	<input type="submit" value="Lanzar búsqueda">
   </p>
   <br>
+  <strong> Filtro Actual: <%= filtro %> </strong>
 </form>
 <hr><br>
 
-<%
-  if (filtro=="%") filtro="Todas las preguntas";
-%>
-
-
 <table cellpadding="10" cellspacing="3">
-  <th colspan="3">
-    <strong> Filtro de Búsqueda: <%= filtro %> </strong>
+  <tr>
+    <th>Tema</ht><th>Pregunta <a href="/quizes/new"><button type="button"> Nueva </button></a></th><th colspan="2">Mantenimiento</th>
   </th>
   <% var i; for (i=0; i < quizes.length; i++) { %>        
      <tr>
-	    <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
-		<td><a href="quizes/<%= quizes[i].id %>/edit"><button> Editar </button></a></td>
+		<td> [<%= quizes[i].tema %>] </td>
+	    <td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+		<td><a href="/quizes/<%= quizes[i].id %>/edit"><button> Editar </button></a></td>
 		<td>
-		   <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+		   <form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 		      <button type="submit" onClick="return confirm('Borrar pregunta: <%= quizes[i].pregunta %>')">
 			     Borrar
 			  </button>		   
@@ -33,3 +38,7 @@
 	 </tr> 
   <% } %>
 </table>
+  <% if (quizes.length === 0) { %>
+     <br><br> 
+     <p><strong>Lo siento. No hay preguntas que cumplan los criterios de búsqueda especificados.</strong></p>
+  <% } %>
