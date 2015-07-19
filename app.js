@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var methodOverride = require('method-override');
 var session = require('express-session');
 
+var tiempoExpiracion= (15*1000);   // 15 segundos
+
 var app = express();
 
 // view engine setup
@@ -27,6 +29,18 @@ app.use(session());
 
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// timeout session
+app.use(function(req, res, next) {
+    if (req.session.user) {
+      if (Date.now() - req.session.user.ultimoAcceso > tiempoExpiracion) {
+        delete req.session.user;
+      } else {
+        req.session.user.ultimoAcceso = Date.now();
+    }
+  }
+  next();
+});
 
 // Helpers dinamicos:
 app.use(function(req, res, next) {
