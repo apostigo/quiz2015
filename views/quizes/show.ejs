@@ -3,10 +3,17 @@
   <p><input type="text" name="respuesta" value="Respuesta"/>
   <input type="submit" value="Enviar"></p>
 </form>
-
+<br>
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button> Nuevo comentario </button></a></p>
 
-<p><strong>Comentarios:</strong></p>
-<%for(index in quiz.Comments){%>
-	<p>- <%=quiz.Comments[index].texto%></p>
-<%}%>
+<table id="tblComentarios" class="centrada">
+  <tr>
+    <td><strong>Comentarios:</strong></td>
+  </tr>	
+  <%for(index in quiz.Comments){%>
+	<tr>
+	  <td align="left"> <%= quiz.Comments[index].texto %> </td>
+	  
+	</tr>  
+  <%}%>
+</table>
