@@ -8,3 +8,7 @@ footer, input       { font-size: large; }
 
 th { background-color: black; color: white; padding: 5px;}
 td { background-color: #ddd; font-color: black; padding:3px; }
+
+table.centrada { align:center; text-align:center; margin: 0 auto; } 
+
+.right 				 {float: right;}

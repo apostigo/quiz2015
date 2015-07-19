@@ -11,9 +11,21 @@
     <td><strong>Comentarios:</strong></td>
   </tr>	
   <%for(index in quiz.Comments){%>
-	<tr>
-	  <td align="left"> <%= quiz.Comments[index].texto %> </td>
-	  
-	</tr>  
-  <%}%>
+  
+	<%if(quiz.Comments[index].publicado || session.user){%>  
+		<tr>
+			<td align="left">
+				<%= quiz.Comments[index].texto %> 
+				<% if(session.user && !quiz.Comments[index].publicado){%>
+					
+					<form style="display:inline;" method="post" action="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish?_method=put">
+						<button type="submit" >	Publicar </button>		   
+					</form>					
+									  
+				<%}%>
+			</td>	  
+		</tr>  
+	<%}%>  
+
+ <%}%>
 </table>

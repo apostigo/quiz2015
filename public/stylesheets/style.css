@@ -14,3 +14,7 @@ nav span             { margin: 0px 10px 0px 0px;}
 
 th { background-color: black; color: white; padding: 5px;}
 td { background-color: #ddd; font-color: black; padding:3px; }
+
+table.centrada { align:center; text-align:center; margin: 0 auto; } 
+
+.right 				 {float: right;}
