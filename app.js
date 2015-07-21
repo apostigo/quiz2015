@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var methodOverride = require('method-override');
 var session = require('express-session');
 
-var tiempoExpiracion= (15*1000);   // 15 segundos
+var tiempoExpiracion= (2*60*1000);   // 2 minutos
 
 var app = express();
 

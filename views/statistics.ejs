@@ -1,0 +1,26 @@
+<h3><%= titulo %></h3><p>
+<%
+ nQ   = estadisticas[0].count;
+ nC   = estadisticas[1].count;
+ nQC  = estadisticas[2].count;
+ nQSC = nQ - nQC;
+ mCQT  = Math.round(nC *100 / nQ )/100; 
+ mCQ  = Math.round(nC *100 / nQC)/100;
+ var cuentas=estadisticas[3][0];
+%>
+
+<table id="statistics" > 
+      <tr><td align="right">Número de preguntas : </td><td> <%= nQ %></td></tr> 
+	  <tr><td align="right">Número de comentarios : </td><td> <%= nC %></td></tr> 
+	  <tr><td align="right">Número de preguntas con comentario : </td><td> <%= nQC %></td></tr> 
+	  <tr><td align="right">Número de preguntas sin comentario : </td><td> <%= nQSC %></td></tr> 
+	  <tr><td align="right">Media de comentarios por pregunta : <br>(todas las preguntas)&nbsp; </td><td> <%= mCQT %></td></tr> 
+	  <tr><td align="right">Media de comentarios por pregunta : <br>(solo preguntas con comentarios)&nbsp; </td><td> <%= mCQ %></td></tr> 
+</table>
+
+<table id="preguntasportema" > 
+      <tr><td colspan="2">Número de preguntas por tema </td></tr>
+      <% for ( i=0; i< cuentas.length; i++ ) { %>
+		 <tr><td align="right"> <%= cuentas[i].tema %> </td><td> <%= cuentas[i].cuenta %></td></tr> 
+	  <% } %>
+</table>
