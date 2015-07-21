@@ -44,10 +44,7 @@ Quiz.hasMany(Comment, {
 
 exports.Quiz = Quiz; // exportar tabla Quiz
 exports.Comment = Comment; 
-
-
-
-
+exports.sequelize = sequelize;
 
 // sequelize.sync() inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
