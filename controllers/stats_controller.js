@@ -6,10 +6,10 @@ exports.statistics=function(req,res){
 
  // promise = require('bluebird'),
   
-  query1 = 'SELECT COUNT(*) as count FROM "quizzes"',
-  query2 = 'SELECT COUNT(*) as count FROM "comments"';
-  query3 = 'select count(*) as count from "quizzes" where "id" in (select "quizid" from "comments")';
-  query4 = 'select "tema",count(*) as cuenta from "quizzes" group by "tema"';
+  query1 = 'SELECT COUNT(*) as count FROM "Quizzes";',
+  query2 = 'SELECT COUNT(*) as count FROM "Comments";';
+  query3 = 'select count(*) as count from "Quizzes" where "id" in (select "QuizId" from "Comments");';
+  query4 = 'select "tema",count(*) as cuenta from "Quizzes" group by "tema";';
 
   var chain = new Sequelize.Utils.QueryChainer();
 
